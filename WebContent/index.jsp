@@ -5,7 +5,7 @@
 <body>
 	<br>
 	<div style="text-align:center">
-		<h2>Hey You..!! This is combo Spring MCV Tutorial..<br> <br></h2>
+		<h2>Hey You..!! This is Simple Spring MCV Weather Application..<br> <br></h2>
 	</div>
 </body>
 </html>
