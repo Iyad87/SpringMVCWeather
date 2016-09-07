@@ -86,5 +86,19 @@ public class WeatherController {
 		modelAndView.addObject("message", "hello from HTML world");
 		return modelAndView;
 	}
+
+	@RequestMapping(value = "/forecast7/{city},{state}", method=RequestMethod.GET, produces="application/json")
+	public ForecastResponse getForecast7(@PathVariable("city") String city,
+			@PathVariable("state") String state) {
+		MapAPIResponse mapResponse = this.getMapInfoRetriever().getMapInfoFor(city, state);
+		Location loc = mapResponse.getGeometry().getLocation();
+		System.out.println("Lat is: " + loc.getLatitude() + " Long is: " + loc.getLongitude() + " " 
+				+ mapResponse.getPlaceId() + " " + mapResponse.getFormattedAddress());
+//		ForecastResponse forecastResponse = forecastRetriever.getForcastFor("hello","world");
+		ForecastResponse forecastResponse = forecastRetriever.getForcastFor(String.valueOf(loc.getLatitude()),
+				String.valueOf(loc.getLongitude()));
+		return forecastResponse;
+	}
+
 	
 }

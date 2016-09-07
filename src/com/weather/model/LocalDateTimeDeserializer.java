@@ -17,7 +17,6 @@ public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
 	    	long timeAsLong = arg0.getLongValue();
 	    	LocalDateTime localDateTime =
 	    		    LocalDateTime.ofInstant(Instant.ofEpochSecond(timeAsLong), ZoneId.systemDefault());
-//	    	System.out.println("Time is: " + localDateTime.getHour() + " Min: " + localDateTime.getMinute() + " Sec: " + localDateTime.getSecond());
 	        return localDateTime;
 	    }
 }

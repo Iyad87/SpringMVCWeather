@@ -6,12 +6,18 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import com.weather.model.ForecastResponse;
+import com.weather.model.exceptions.ExternalServiceInvocationException;
 
 @Service
 public class ForecastRetrieverImpl implements ForecastRetriever {
+
+	protected static final String ARG_LATITUDE = "latitude";
+	protected static final String ARG_LONGITUDE = "longitude";
+	protected static final String ARG_API_KEY = "apiKey";
 
 	@Value("#{myProps['forecastio.api.key']}")
 	private String forecastioApiKey;
@@ -48,17 +54,24 @@ public class ForecastRetrieverImpl implements ForecastRetriever {
 
 	Map<String,String> buildURLMap(String longitude, String latitude) {
 		Map<String,String> arguments = new HashMap<String,String>();
-		arguments.put("apiKey", getForecastioApiKey());
-		arguments.put("longitude", longitude);
-		arguments.put("latitude", latitude);
+		arguments.put(ARG_API_KEY, getForecastioApiKey());
+		arguments.put(ARG_LONGITUDE, longitude);
+		arguments.put(ARG_LATITUDE, latitude);
 		return arguments;
 	}
 	
 	@Override
 	public ForecastResponse getForcastFor(String longitude, String latitude) {
+		try {
 		ForecastResponse forecast = restTemplate.getForObject(getForecastioBaseUrl(), 
 				ForecastResponse.class, buildURLMap(longitude, latitude));
 		return forecast;
+		} catch (HttpStatusCodeException httpStatusEx) {
+			// Forecast.IO only return HTTPStatus code (not error response) so catch exceptions here and convert to 
+			// our common Exception for easier error handling
+			System.out.println("HttpStatus from ForecastIO is: " + httpStatusEx.getRawStatusCode());
+			throw new ExternalServiceInvocationException("ForecastIOException", httpStatusEx.getRawStatusCode());
+		}
 	}
 
 }
