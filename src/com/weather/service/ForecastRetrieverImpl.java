@@ -69,7 +69,7 @@ public class ForecastRetrieverImpl implements ForecastRetriever {
 		} catch (HttpStatusCodeException httpStatusEx) {
 			// Forecast.IO only return HTTPStatus code (not error response) so catch exceptions here and convert to 
 			// our common Exception for easier error handling
-			System.out.println("HttpStatus from ForecastIO is: " + httpStatusEx.getRawStatusCode());
+//			System.out.println("HttpStatus from ForecastIO is: " + httpStatusEx.getRawStatusCode());
 			throw new ExternalServiceInvocationException("ForecastIOException", httpStatusEx.getRawStatusCode());
 		}
 	}
