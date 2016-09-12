@@ -15,6 +15,9 @@
   	<mvc:annotation-driven/>
  	<context:component-scan base-package="com.weather.controller" />
 	
+	<mvc:resources mapping="/static/**" location="/static/" />
+<!-- 	<mvc:default-servlet-handler />   -->
+	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass"

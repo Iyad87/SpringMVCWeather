@@ -66,6 +66,13 @@ public class WeatherController {
 //		return modelAndView;
 //	}
 
+	
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView getIndexPage() {
+    	ModelAndView modelAndView = new ModelAndView("CurrentForecast");
+        return modelAndView;
+    }
+	
 	@RequestMapping(value = "/forecast/{city},{state}", method=RequestMethod.GET, produces="application/json")
 	public ForecastResponse getForecast(@PathVariable("city") String city,
 			@PathVariable("state") String state) {

@@ -9,7 +9,7 @@ Notes:
 * I'm refreshing my SpringMVC memory so I may not be using all the latest bells/whistles from Spring.
 * This built using Eclipse Neon on Ubuntu. It was NOT tested on Windows since I don't have a windows laptop anymore.
 * I'm MAVEN novice (I used ANT 4+ years ago) so I may have some things incorrect there.
-* The HTML generated from JSP is super basic HTML/TABLE. I may extend this to use a Javascript MVC framework at a later date.
+* The HTML used is simple Angular using bootstrap layout stuff. Can extend this at a later date.
 * To perform city/state to latitude/longitude lookup I integrated with the Google Map REST API
 * To perform all forecast lookups I integrated with the Forecast.io weather REST API
 
@@ -43,9 +43,8 @@ Create a new app.properties file in the src/main/resources directory with the co
 
 Build whole project and deploy to tomcat instance (or Jetty).
 Open browser and hit a simple endpoint
-http://localhost:8080/SpringMVCWeather/index.jsp - main page does nothing right now
-http://localhost:8080/SpringMVCWeather/weather/forecast6 - returns HTML for current weather
-http://localhost:8080/SpringMVCWeather/weather/forecast6.json - returns JSON for current forecast
+http://localhost:8080/SpringMVCWeather/weather/ - main page retrieves hard coded location for now
+http://localhost:8080/SpringMVCWeather/weather/forecast/city,state - returns JSON for current forecast for given city,state
 
 ## Testing
 
@@ -58,9 +57,13 @@ N/A
 
 ## TODO Stuff
 
-* Unit Testing - Need to add in proper unit testing
+* UI -> add city/state info to response and UI
+* UI -> let user pick city/state
+* UI -> fix hard coded service URL
+* Need to write JS unit tests for angular code
+* Spring code based setup (not XML)
+* Fix the separation of tests/src code (src/main/java, test/java) (and resources)
 * Error handling - Need to add in a custom exception handler
-* UI Framework - Need to integrate with a UI framework (e.g Angular, Backbone, ???)
 * Push to Heroku - Need to install this in the cloud on Heroku at some point too.
 
 ## Getting Help

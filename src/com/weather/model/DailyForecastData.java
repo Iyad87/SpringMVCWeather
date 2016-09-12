@@ -9,9 +9,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class DailyForecastData extends ForecastBase {
 
 	private double temperatureMin;
+	private double temperatureMax;
+
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime temperatureMinTime;
-	private double temperatureMax;
+	
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime temperatureMaxTime;
 	
