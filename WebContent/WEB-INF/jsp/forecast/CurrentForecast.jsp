@@ -15,20 +15,39 @@
               	<span class="lead" ng-bind="formatHeader('Current Forecast For ', ctrl.forecastResponse.currently.time)"/>
               </div>
               <div class="formcontainer">
-				<form name="myForm" class="form-horizontal">
+				<form name="myForm" class="form-horizontal" ng-submit="ctrl.submit()">
                       <div class="row">
-                          <div class="form-group col-md-12">
-                              <label class="col-md-2 control-lable" for="summary">Summary</label>
-                               <div class="col-md-7">
-                              <label ng-bind="ctrl.forecastResponse.currently.summary"/>
+                          <div class="form-group">
+                              <label class="col-sm-2 control-label" for="summary">City,State</label>
+                               <div class="col-sm-8">
+  									<input type="text" name="address" class="form-control" ng-model="ctrl.searchAddress" />
+                              </div>
+                              <div class="col-sm-2">
+                              	<input type="submit" id="submit" value="Submit" class="btn btn-default"/>
                               </div>
                           </div>
                       </div>
                       <div class="row">
-                          <div class="form-group col-md-12">
-                              <label class="col-md-2 control-lable" for="temperature">Temperature</label>
-                              <div class="col-md-7">
-                              	<label ng-bind="ctrl.forecastResponse.currently.temperature"/>
+                          <div class="form-group">
+                              <label class="col-sm-2 control-label" for="summary">Formatted Address</label>
+                               <div class="col-sm-10">
+  									<p class="form-control-static" ng-bind="ctrl.forecastResponse.formattedAddress" />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="form-group">
+                              <label class="col-sm-2 control-label" for="summary">Summary</label>
+                               <div class="col-sm-10">
+                               <p class="form-control-static" ng-bind="ctrl.forecastResponse.currently.summary" />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="form-group">
+                              <label class="col-sm-2 control-label" for="temperature">Temperature</label>
+                              <div class="col-sm-10">
+                              <p class="form-control-static" ng-bind="ctrl.forecastResponse.currently.temperature" />
                               </div>
                           </div>
                       </div>
@@ -43,16 +62,14 @@
                           <tr>
                           	  <th>Date</th>
                           	  <th>Summary</th>
-                              <th>High Temp</th>
-                              <th>Low Temp</th>
+                              <th>Temp</th>
                           </tr>
                       </thead>
                       <tbody>
                           <tr ng-repeat="u in ctrl.forecastResponse.daily.data">
                           	  <td><span ng-bind="formatDate(u.time) |  date:'MMMM dd yyyy'"/></td>
                               <td><span ng-bind="u.summary"/></td>
-                              <td><span ng-bind="formatHighTemp(u)"/></td>
-                              <td><span ng-bind="formatLowTemp(u)"/></td>
+                              <td><span ng-bind="formatTemp(u)"/></td>
                           </tr>
                       </tbody>
                   </table>

@@ -7,6 +7,10 @@ body, .form-control{
 	font-size:12px!important;
 }
 
+.controls.readonly {
+	padding-top: 5px;	
+}
+
 .floatRight{
 	float:right;
 	margin-right: 18px;

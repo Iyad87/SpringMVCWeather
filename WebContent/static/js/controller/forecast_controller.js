@@ -3,11 +3,12 @@
  */
 'use strict';
  
-angular.module('myApp').controller('ForecastController', ['$scope', '$filter', 'ForecastService', function($scope, $filter, ForecastService) {
+angular.module('myApp').controller('ForecastController', ['$scope', 'ForecastService', '$filter', function($scope, ForecastService, $filter) {
     var self = this;
     self.forecastResponse = {longitude:null, latitude:null, currently:null, daily:null};
-    fetchForecast();
- 
+    self.submit = submit;
+    self.searchAddress = "Philadelphia,PA";
+
     // faster jackson is returning as array of values (not string) so just convert it here
     $scope.formatDate = function(dateValueAsArray){
     	if (!dateValueAsArray) {
@@ -20,26 +21,31 @@ angular.module('myApp').controller('ForecastController', ['$scope', '$filter', '
     };
 
     // did this to play around with filters in JS code
-    $scope.formatHighTemp = function(dailyForecast){
-    	var theDate = $scope.formatDate(dailyForecast.temperatureMaxTime);
-    	var formattedTime = $filter('date')(theDate, 'h:mm a');
-    	return dailyForecast.temperatureMax + '/' + formattedTime;
+    $scope.formatTemp = function(dailyForecast){
+    	var formattedMinTemp = $scope.formatTemperatureNumber(dailyForecast.temperatureMin);
+    	var formattedMaxTemp = $scope.formatTemperatureNumber(dailyForecast.temperatureMax);
+    	return formattedMaxTemp + ' / ' + formattedMinTemp;
     };
 
-    $scope.formatLowTemp = function(dailyForecast){
-    	var theDate = $scope.formatDate(dailyForecast.temperatureMinTime);
-    	var formattedTime = $filter('date')(theDate, 'h:mm a');
-    	return dailyForecast.temperatureMin + '/' + formattedTime;
+    $scope.formatTemperatureNumber = function(temperatureNumber) {
+    	var formattedTemperature = $filter('number')(temperatureNumber,0);
+    	return formattedTemperature;
     };
-
+    
     $scope.formatHeader = function(headerText, dateTimeInJson) {
     	var theDate = $scope.formatDate(dateTimeInJson);
     	var formattedTime = $filter('date')(theDate, 'MMMM dd yyyy h:mm a');
     	return headerText + formattedTime;
     };
-    
-    function fetchForecast(){
-        ForecastService.fetchForecast()
+
+    function submit() {
+    	if (self.searchAddress) {
+    		fetchForecastForLocation();
+    	}
+    }
+
+    function fetchForecastForLocation(){
+    	ForecastService.fetchForecastForLocation(self.searchAddress)
             .then(
             function(d) {
                 self.forecastResponse = d;

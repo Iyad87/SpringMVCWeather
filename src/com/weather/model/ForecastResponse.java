@@ -12,6 +12,22 @@ public class ForecastResponse {
 	private CurrentForecast currently;
 	private DailyForecast daily;
 	
+	private String formattedAddress;
+	private String searchAddress;
+	
+	public String getSearchAddress() {
+		return searchAddress;
+	}
+	public void setSearchAddress(String searchAddress) {
+		this.searchAddress = searchAddress;
+	}
+	public String getFormattedAddress() {
+		return formattedAddress;
+	}
+	public void setFormattedAddress(String formattedAddress) {
+		this.formattedAddress = formattedAddress;
+	}
+	
 	public CurrentForecast getCurrently() {
 		return currently;
 	}

@@ -80,8 +80,17 @@ public class WeatherController {
 		Location loc = mapResponse.getGeometry().getLocation();
 		ForecastResponse forecastResponse = forecastRetriever.getForcastFor(String.valueOf(loc.getLatitude()),
 				String.valueOf(loc.getLongitude()));
+		forecastResponse.setFormattedAddress(mapResponse.getFormattedAddress());
+		forecastResponse.setSearchAddress(buildSearchAddress(city,state));
 		return forecastResponse;
 	}
 
+	String buildSearchAddress(String city, String state) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(city);
+		builder.append(",");
+		builder.append(state);
+		return builder.toString();
+	}
 	
 }

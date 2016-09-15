@@ -2,6 +2,7 @@ package com.weather.controller;
 
 
 import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -24,6 +25,7 @@ import com.weather.model.MapAPIResponse;
 import com.weather.model.exceptions.ExternalServiceInvocationException;
 import com.weather.service.ForecastRetriever;
 import com.weather.service.MapInfoRetriever;
+
 
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath:/weatherControllerTest-servlet.xml"})
@@ -63,7 +65,9 @@ public class WeatherControllerIntegrationTest extends AbstractJUnit4SpringContex
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.longitude", Matchers.is(100)))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.latitude", Matchers.is(100)))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.offset", Matchers.is(200)));
+				.andExpect(MockMvcResultMatchers.jsonPath("$.offset", Matchers.is(200)))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.formattedAddress", Matchers.is("city,township,state,zip")))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.searchAddress", Matchers.is("TestCity,PA")));
 //                .andDo(MockMvcResultHandlers.print());
 		
         Mockito.verify(mapInfoRetriever, Mockito.times(1)).getMapInfoFor("TestCity", "PA");
@@ -103,6 +107,18 @@ public class WeatherControllerIntegrationTest extends AbstractJUnit4SpringContex
         Mockito.verifyNoMoreInteractions(forecastRetriever);
 	}
 	
+	@Test
+	public void testBuildSearchAddressConcatenatesCityStateSearchArguments() {
+		WeatherController controller = new WeatherController();
+		Assert.assertEquals("Phila,PA", controller.buildSearchAddress("Phila", "PA"));
+	}
+
+	@Test
+	public void testBuildSearchAddressReturnsCommaStringWithEmptyCityStateSearchArguments() {
+		WeatherController controller = new WeatherController();
+		Assert.assertEquals(",", controller.buildSearchAddress("", ""));
+	}
+
 	private ForecastResponse buildStubForecastResponse() {
 		ForecastResponse stubForecastResponse = new ForecastResponse();
 		stubForecastResponse.setLatitude(100);
@@ -119,6 +135,7 @@ public class WeatherControllerIntegrationTest extends AbstractJUnit4SpringContex
 		stubLocation.setLongitude(100);
 		stubGeo.setLocation(stubLocation);
 		stubMapResponse.setGeometry(stubGeo);
+		stubMapResponse.setFormattedAddress("city,township,state,zip");
 		return stubMapResponse;
 	}
 
