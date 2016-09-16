@@ -35,7 +35,7 @@ angular.module('myApp').controller('ForecastController', ['$scope', 'ForecastSer
     $scope.formatHeader = function(headerText, dateTimeInJson) {
     	var theDate = $scope.formatDate(dateTimeInJson);
     	var formattedTime = $filter('date')(theDate, 'MMMM dd yyyy h:mm a');
-    	return headerText + formattedTime;
+    	return headerText + " " + formattedTime;
     };
 
     function submit() {

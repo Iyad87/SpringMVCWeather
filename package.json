@@ -1,0 +1,29 @@
+{
+  "name": "springmvcweather",
+  "version": "1.0.0",
+  "description": "SpringMVCWeather  ==================",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjanusz-personal/SpringMVCWeather.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tjanusz-personal/SpringMVCWeather/issues"
+  },
+  "homepage": "https://github.com/tjanusz-personal/SpringMVCWeather#readme",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "jasmine-core": "^2.5.1"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.5.8",
+    "jasmine-core": "^2.5.1",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.0.2"
+  }
+}

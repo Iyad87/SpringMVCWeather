@@ -28,6 +28,19 @@ The dependencies should be wired using the Maven POM.xml file.
 * **Google Maps API** - Need to obtain an API Key for access to the map api. https://developers.google.com/maps/
 * **Forecast.io API** - Need to obtain an API key for access to the ForecastIO REST API. (http://forecast.io)
 
+To run the unit tests for the Angular JS UI you need to install the following:
+* **nodejs** - Need to get NodeJS/Node Package Manager to run the angular unit tests
+* **karma** - Need to get karma and install it (see below)
+
+* `npm install -g karma --save-dev` (had to install globally to work)
+* `npm install karma-jasmine jasmine-core --save-dev`
+* `npm install angular-mocks --save-dev`
+* `npm install jasmine-core --save`
+* `npm install jasmine-core --save`
+* `npm install karma-chrome-launcher --save-dev`
+* `npm install karma-cli`
+* `npm install angular --save`
+
 
 ### Configuring the Project
 
@@ -48,7 +61,10 @@ http://localhost:8080/SpringMVCWeather/weather/forecast/city,state - returns JSO
 
 ## Testing
 
-I'm adding a set of unit tests for each layer. I'm still wiring up the goop so this is next.
+There are unit tests at each layer (Java, Spring MVC, Angular JS)
+
+To run the angular unit tests you need to run `./node_modules/.bin/karma start`
+
 
 ## Deployment
 
@@ -57,10 +73,7 @@ N/A
 
 ## TODO Stuff
 
-* UI -> add city/state info to response and UI
-* UI -> let user pick city/state
 * UI -> fix hard coded service URL
-* Need to write JS unit tests for angular code
 * Spring code based setup (not XML)
 * Fix the separation of tests/src code (src/main/java, test/java) (and resources)
 * Error handling - Need to add in a custom exception handler
