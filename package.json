@@ -21,6 +21,7 @@
     "jasmine-core": "^2.5.1"
   },
   "devDependencies": {
+    "angular-animate": "^1.4.4",
     "angular-mocks": "^1.5.8",
     "jasmine-core": "^2.5.1",
     "karma-chrome-launcher": "^2.0.0",

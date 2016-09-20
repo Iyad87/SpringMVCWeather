@@ -12,18 +12,20 @@
       <div class="generic-container" ng-controller="ForecastController as ctrl">
            <div class="panel panel-default">
               <div class="panel-heading">
-              	<span class="lead" ng-bind="formatHeader('Current Forecast For ', ctrl.forecastResponse.currently.time)"/>
+              	<span class="lead">{{ 'Current Forecast For ' | forecastHeader:ctrl.forecastResponse.currently.time }}</span> 
               </div>
               <div class="formcontainer">
 				<form name="myForm" class="form-horizontal" ng-submit="ctrl.submit()">
                       <div class="row">
                           <div class="form-group">
                               <label class="col-sm-2 control-label" for="summary">City,State</label>
-                               <div class="col-sm-8">
-  									<input type="text" name="address" class="form-control" ng-model="ctrl.searchAddress" />
+                               <div class="col-sm-7">
+  									<input type="text" name="address" class="form-control" 
+  									ng-model="ctrl.searchAddress" ng-required="true" ng-pattern="cityStateRE" />
                               </div>
                               <div class="col-sm-2">
-                              	<input type="submit" id="submit" value="Submit" class="btn btn-default"/>
+                              	<input type="submit" ng-disabled="myForm.$invalid" 
+                              		id="submit" value="Submit" class="btn btn-default"/>
                               </div>
                           </div>
                       </div>
@@ -55,30 +57,28 @@
          </div>
           </div>
           <div class="panel panel-default">
-              <div class="panel-heading"><span class="lead">Current Week Forecast</span></div>
-              <div class="tablecontainer">
-                  <table class="table table-hover">
-                      <thead>
-                          <tr>
-                          	  <th>Date</th>
-                          	  <th>Summary</th>
-                              <th>Temp</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr ng-repeat="u in ctrl.forecastResponse.daily.data">
-                          	  <td><span ng-bind="formatDate(u.time) |  date:'MMMM dd yyyy'"/></td>
-                              <td><span ng-bind="u.summary"/></td>
-                              <td><span ng-bind="formatTemp(u)"/></td>
-                          </tr>
-                      </tbody>
-                  </table>
+              <div class="panel-heading"><span class="lead">Extended Forecast</span></div>
+              <div ng-show="ctrl.forecastResponse.daily.data.length > 0" class="tablecontainer">
+              	<div class="row" >
+  					<div class="col-xs-6 col-md-4" ng-repeat="u in ctrl.forecastResponse.daily.data">
+    					<div class="thumbnail">
+      						<div class="caption">
+								<h3>{{ u.time | dateFromJackson |  date:'EEE MMMM dd'}}</h3>
+        						<p>{{ u.summary }}</p>
+								<p>{{ u.temperatureMin | temperatureFormat: u.temperatureMax }}</p>
+      						</div>
+    					</div>
+  					</div>
+				</div>
+              
               </div>
           </div>
       </div>
        
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-animate.js"></script>
       <script src="<c:url value='/static/js/app.js' />"></script>
+      <script src="<c:url value='/static/js/filters/forecast_filters.js' />"></script>
       <script src="<c:url value='/static/js/service/forecast_service.js' />"></script>
       <script src="<c:url value='/static/js/controller/forecast_controller.js' />"></script>
   </body>
