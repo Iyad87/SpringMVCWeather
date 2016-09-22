@@ -11,7 +11,7 @@ Notes:
 * I'm a MAVEN novice (I used ANT 4+ years ago) so I may have some things incorrect there.
 * The HTML/JS is simple Angular using bootstrap layouts.
 * To perform city/state to latitude/longitude lookup I integrated with the Google Map REST API
-* To perform all forecast lookups I integrated with the Forecast.io weather REST API
+* To perform all forecast lookups I integrated with the darkSky (https://darksky.net/dev/) weather REST API
 
 
 ## Getting Started
@@ -26,7 +26,7 @@ The Java dependencies should be wired using the Maven POM.xml file.
 * **Spring MVC** - Spring MVC framework
 * **Jackson** - Needed this for the JSON serialization
 * **Google Maps API** - Need to obtain an API Key for access to the map api. https://developers.google.com/maps/
-* **Forecast.io API** - Need to obtain an API key for access to the ForecastIO REST API. (http://forecast.io)
+* **Darksky API** - Need to obtain an API key for access to the Darksky REST API. (https://darksky.net/dev/)
 
 Running the Angular JS unit tests uses the standard Karma/Jasmine testing stack so you'll need:
 * **NodeJS** - NodeJS/Node Package Manager for installing all dependencies (https://nodejs.org/)
@@ -46,7 +46,7 @@ You need to load the pom.xml and create a MAVEN run configuration with "clean in
 
 Create a new app.properties file in the src/main/resources directory with the correct properties
 
-* **forecastio.api.key=YOUR_KEY_GOES_HERE** - forecast.io api key for all REST requests
+* **darksky.api.key=YOUR_KEY_GOES_HERE** - Darksky api key for all REST requests
 * **map.api.key=YOUR_GOOGLE_KEY_GOES_HERE** - 
 
 

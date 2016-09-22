@@ -19,11 +19,11 @@ public class ForecastRetrieverImpl implements ForecastRetriever {
 	protected static final String ARG_LONGITUDE = "longitude";
 	protected static final String ARG_API_KEY = "apiKey";
 
-	@Value("#{myProps['forecastio.api.key']}")
-	private String forecastioApiKey;
+	@Value("#{myProps['darksky.api.key']}")
+	private String darkskyApiKey;
 
-	@Value("#{myProps['forecastio.base.url']}")
-	private String forecastioBaseUrl;
+	@Value("#{myProps['darksky.base.url']}")
+	private String darkskyBaseUrl;
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -36,25 +36,25 @@ public class ForecastRetrieverImpl implements ForecastRetriever {
 		this.restTemplate = restTemplate;
 	}
 
-	public String getForecastioApiKey() {
-		return forecastioApiKey;
+	public String getDarkskyApiKey() {
+		return darkskyApiKey;
 	}
 	
-	public void setForecastioApiKey(String forecastioApiKey) {
-		this.forecastioApiKey = forecastioApiKey;
+	public void setDarkskyApiKey(String forecastioApiKey) {
+		this.darkskyApiKey = forecastioApiKey;
 	}
 
-	public String getForecastioBaseUrl() {
-		return forecastioBaseUrl;
+	public String getDarkskyBaseUrl() {
+		return darkskyBaseUrl;
 	}
 
-	public void setForecastioBaseUrl(String forecastioBaseUrl) {
-		this.forecastioBaseUrl = forecastioBaseUrl;
+	public void setDarkskyBaseUrl(String forecastioBaseUrl) {
+		this.darkskyBaseUrl = forecastioBaseUrl;
 	}
 
 	Map<String,String> buildURLMap(String longitude, String latitude) {
 		Map<String,String> arguments = new HashMap<String,String>();
-		arguments.put(ARG_API_KEY, getForecastioApiKey());
+		arguments.put(ARG_API_KEY, getDarkskyApiKey());
 		arguments.put(ARG_LONGITUDE, longitude);
 		arguments.put(ARG_LATITUDE, latitude);
 		return arguments;
@@ -63,11 +63,11 @@ public class ForecastRetrieverImpl implements ForecastRetriever {
 	@Override
 	public ForecastResponse getForcastFor(String longitude, String latitude) {
 		try {
-		ForecastResponse forecast = restTemplate.getForObject(getForecastioBaseUrl(), 
+		ForecastResponse forecast = restTemplate.getForObject(getDarkskyBaseUrl(), 
 				ForecastResponse.class, buildURLMap(longitude, latitude));
 		return forecast;
 		} catch (HttpStatusCodeException httpStatusEx) {
-			// Forecast.IO only return HTTPStatus code (not error response) so catch exceptions here and convert to 
+			// Darksky only return HTTPStatus code (not error response) so catch exceptions here and convert to 
 			// our common Exception for easier error handling
 //			System.out.println("HttpStatus from ForecastIO is: " + httpStatusEx.getRawStatusCode());
 			throw new ExternalServiceInvocationException("ForecastIOException", httpStatusEx.getRawStatusCode());

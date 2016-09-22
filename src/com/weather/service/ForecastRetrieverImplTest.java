@@ -19,8 +19,8 @@ public class ForecastRetrieverImplTest {
 	@Before
 	public void setUp() throws Exception {
 		service = new ForecastRetrieverImpl();
-		service.setForecastioBaseUrl("http://thebaseUrl/");
-		service.setForecastioApiKey("THE_KEY");
+		service.setDarkskyBaseUrl("http://thebaseUrl/");
+		service.setDarkskyApiKey("THE_KEY");
 	}
 
 	@Test

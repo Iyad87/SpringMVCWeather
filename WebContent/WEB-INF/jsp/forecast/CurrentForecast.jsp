@@ -61,14 +61,8 @@
               <div class="panel-heading"><span class="lead">Extended Forecast</span></div>
               <div ng-show="ctrl.forecastResponse.daily.data.length > 0" class="tablecontainer">
               	<div class="row" >
-  					<div class="col-xs-6 col-md-4" ng-repeat="u in ctrl.forecastResponse.daily.data">
-    					<div class="thumbnail">
-      						<div class="caption">
-								<h3>{{ u.time | dateFromJackson |  date:'EEE MMMM dd'}}</h3>
-        						<p>{{ u.summary }}</p>
-								<p>{{ u.temperatureMin | temperatureFormat: u.temperatureMax }}</p>
-      						</div>
-    					</div>
+  					<div class="col-xs-6 col-md-4" ng-repeat="dailyForecast in ctrl.forecastResponse.daily.data">
+  						<daily-Forecast forecast="dailyForecast"/>
   					</div>
 				</div>
               
@@ -82,5 +76,6 @@
       <script src="<c:url value='/static/js/filters/forecast_filters.js' />"></script>
       <script src="<c:url value='/static/js/service/forecast_service.js' />"></script>
       <script src="<c:url value='/static/js/controller/forecast_controller.js' />"></script>
+      <script src="<c:url value='/static/js/directives/daily_forecast_directive.js' />"></script>
   </body>
 </html>

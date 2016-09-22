@@ -1,0 +1,7 @@
+<div class="thumbnail">
+	<div class="caption">
+		<h3>{{ forecast.time | dateFromJackson |  date:'EEE MMMM dd'}}</h3>
+    	<p>{{ forecast.summary }}</p>
+		<p>{{ forecast.temperatureMin | temperatureFormat: forecast.temperatureMax }}</p>
+    </div>
+</div>

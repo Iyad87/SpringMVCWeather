@@ -68,8 +68,8 @@ public class ForecastRetrieverImplIntegrationTest extends AbstractJUnit4SpringCo
 
 	@Test
 	public void testPropertiesAreWiredCorrectly() {
-		assertEquals("FORECAST", service.getForecastioApiKey());
-		assertThat(service.getForecastioBaseUrl(), StringStartsWith.startsWith("https://api.forecast.io"));
+		assertEquals("FORECAST", service.getDarkskyApiKey());
+		assertThat(service.getDarkskyBaseUrl(), StringStartsWith.startsWith("https://api.darksky.net"));
 	}
 
 	private String buildDummyJSONResponse() throws JsonProcessingException {
