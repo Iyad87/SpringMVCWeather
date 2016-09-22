@@ -4,10 +4,10 @@
 
 'use strict';
  
-angular.module('myApp').factory('ForecastService', ['$http', '$q', function($http, $q){
+angular.module('myApp').factory('ForecastService', ['$http', '$q', "baseServiceURL", function($http, $q, baseServiceURL){
 
-	// TODO: need to fix the hard coded URL (and parameters)
-    var REST_SERVICE_URI2 = 'http://localhost:8080/SpringMVCWeather/weather/forecast/';
+	// define service endpoint
+    var REST_SERVICE_URI = baseServiceURL + '/weather/forecast/';
  
     var factory = {
         fetchForecastForLocation: fetchForecastForLocation
@@ -17,7 +17,7 @@ angular.module('myApp').factory('ForecastService', ['$http', '$q', function($htt
 
     function fetchForecastForLocation(location) {
         var deferred = $q.defer();
-        $http.get(REST_SERVICE_URI2 + location)
+        $http.get(REST_SERVICE_URI + location)
             .then(
             function (response) {
                 deferred.resolve(response.data);

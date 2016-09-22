@@ -22,7 +22,7 @@ body, .form-control{
 
 .formcontainer{
 	background-color: #DAE8E8;
-	padding: 20px;
+	padding: 5px;
 }
 
 .tablecontainer{
@@ -30,7 +30,7 @@ body, .form-control{
 }
 
 .generic-container {
-  width:80%;
+  width: 95%;
   margin-left: 20px;
   margin-top: 20px;
   margin-bottom: 20px;

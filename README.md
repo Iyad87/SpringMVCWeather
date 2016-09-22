@@ -9,7 +9,7 @@ Notes:
 * I'm refreshing my SpringMVC memory so I may not be using all the latest bells/whistles from Spring.
 * This built using Eclipse Neon on Ubuntu. It was NOT tested on Windows since I don't have a windows laptop anymore.
 * I'm MAVEN novice (I used ANT 4+ years ago) so I may have some things incorrect there.
-* The HTML used is simple Angular using bootstrap layout stuff. Can extend this at a later date.
+* The HTML used is simple Angular using bootstrap layout stuff.
 * To perform city/state to latitude/longitude lookup I integrated with the Google Map REST API
 * To perform all forecast lookups I integrated with the Forecast.io weather REST API
 
@@ -22,7 +22,7 @@ Notes:
 
 
 ### Dependencies
-The dependencies should be wired using the Maven POM.xml file.
+The Java dependencies should be wired using the Maven POM.xml file.
 * **Spring MVC** - I used the boxed Intellij version 4
 * **Jackson** - Needed this for the JSON serialization
 * **Google Maps API** - Need to obtain an API Key for access to the map api. https://developers.google.com/maps/
@@ -73,7 +73,6 @@ N/A
 
 ## TODO Stuff
 
-* UI -> fix hard coded service URL
 * Spring code based setup (not XML)
 * Fix the separation of tests/src code (src/main/java, test/java) (and resources)
 * Error handling - Need to add in a custom exception handler

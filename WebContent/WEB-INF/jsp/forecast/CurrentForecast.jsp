@@ -21,7 +21,8 @@
                               <label class="col-sm-2 control-label" for="summary">City,State</label>
                                <div class="col-sm-7">
   									<input type="text" name="address" class="form-control" 
-  									ng-model="ctrl.searchAddress" ng-required="true" ng-pattern="cityStateRE" />
+  									ng-model="ctrl.searchAddress" ng-required="true" ng-pattern="cityStateRE"
+  									placeholder="Please enter city , state" />
                               </div>
                               <div class="col-sm-2">
                               	<input type="submit" ng-disabled="myForm.$invalid" 
