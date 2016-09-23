@@ -25,6 +25,7 @@
     "angular-mocks": "^1.5.8",
     "jasmine-core": "^2.5.1",
     "karma-chrome-launcher": "^2.0.0",
-    "karma-jasmine": "^1.0.2"
+    "karma-jasmine": "^1.0.2",
+    "karma-ng-html2js-preprocessor": "^1.0.0"
   }
 }

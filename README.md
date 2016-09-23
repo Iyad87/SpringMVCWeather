@@ -34,6 +34,7 @@ Running the Angular JS unit tests uses the standard Karma/Jasmine testing stack 
 
 * `npm install -g karma --save-dev` (had to install Karma globally to work)
 * `npm install karma-jasmine jasmine-core --save-dev` (get jasmine unit test framework)
+* `npm install karma-ng-html2js-preprocessor --save-dev` (needed for Angular directive testing)
 * `npm install angular --save`
 * `npm install angular-mocks --save-dev` (for mocking service tier in tests)
 * `npm install karma-chrome-launcher --save-dev` (I used chrome as a launcher)
