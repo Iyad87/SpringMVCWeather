@@ -76,6 +76,9 @@ public class WeatherController {
 	@RequestMapping(value = "/forecast/{city},{state}", method=RequestMethod.GET, produces="application/json")
 	public ForecastResponse getForecast(@PathVariable("city") String city,
 			@PathVariable("state") String state) {
+		System.out.println("**** Hello world I want to see this in Heroku!!!");
+		
+		
 		MapAPIResponse mapResponse = this.getMapInfoRetriever().getMapInfoFor(city, state);
 		Location loc = mapResponse.getGeometry().getLocation();
 		ForecastResponse forecastResponse = forecastRetriever.getForcastFor(String.valueOf(loc.getLatitude()),
