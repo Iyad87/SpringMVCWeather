@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
@@ -27,7 +28,9 @@ public class MapInfoRetrieverImpl implements MapInfoRetriever {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	@Value("#{myProps['map.api.key']}")
+	@Autowired
+	private Environment environment;
+
 	private String mapApiKey;
 
 	@Value("#{myProps['map.base.url']}")
@@ -42,6 +45,9 @@ public class MapInfoRetrieverImpl implements MapInfoRetriever {
 	}
 
 	public String getMapApiKey() {
+		if (mapApiKey == null) {
+			this.mapApiKey = environment.getProperty("MAP_API_KEY");
+		}
 		return mapApiKey;
 	}
 

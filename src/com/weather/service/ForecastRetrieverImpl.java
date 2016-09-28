@@ -23,8 +23,6 @@ public class ForecastRetrieverImpl implements ForecastRetriever {
 	@Autowired
 	private Environment environment;
 	
-//	@Value("#{systemEnvironment['DARKSKY_API_KEY']}")
-//	@Value("#{myProps['darksky.api.key']}")
 	private String darkskyApiKey;
 
 	@Value("#{myProps['darksky.base.url']}")
@@ -65,9 +63,6 @@ public class ForecastRetrieverImpl implements ForecastRetriever {
 		arguments.put(ARG_API_KEY, getDarkskyApiKey());
 		arguments.put(ARG_LONGITUDE, longitude);
 		arguments.put(ARG_LATITUDE, latitude);
-		System.err.println("Hello, logs!");
-		System.out.println("**** DarkskyApiKey out is: " + getDarkskyApiKey());
-		System.err.println("**** DarkskyApiKey err is: " + getDarkskyApiKey());
 		return arguments;
 	}
 	
