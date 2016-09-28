@@ -1,4 +1,4 @@
 target/
 build/
-src/main/resources/app.properties
+# src/main/resources/app.properties
 node_modules/
