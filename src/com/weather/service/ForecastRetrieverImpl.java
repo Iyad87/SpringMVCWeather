@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
@@ -19,7 +20,11 @@ public class ForecastRetrieverImpl implements ForecastRetriever {
 	protected static final String ARG_LONGITUDE = "longitude";
 	protected static final String ARG_API_KEY = "apiKey";
 
-	@Value("#{myProps['darksky.api.key']}")
+	@Autowired
+	private Environment environment;
+	
+//	@Value("#{systemEnvironment['DARKSKY_API_KEY']}")
+//	@Value("#{myProps['darksky.api.key']}")
 	private String darkskyApiKey;
 
 	@Value("#{myProps['darksky.base.url']}")
@@ -37,6 +42,9 @@ public class ForecastRetrieverImpl implements ForecastRetriever {
 	}
 
 	public String getDarkskyApiKey() {
+		if (darkskyApiKey == null) {
+			this.darkskyApiKey = environment.getProperty("DARKSKY_API_KEY");
+		}
 		return darkskyApiKey;
 	}
 	
