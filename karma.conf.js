@@ -39,8 +39,7 @@ module.exports = function(config) {
     ngHtml2JsPreprocessor: {
         // strip off WebContent prefix and prepend /SpringMVCWeather/
         stripPrefix: "WebContent/",
-        prependPrefix: "/SpringMVCWeather/",
-
+        prependPrefix: "/",
         // Create module to load in unit tests
         moduleName: "my.templates"
     },

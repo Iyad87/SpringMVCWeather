@@ -12,7 +12,7 @@ Notes:
 * The HTML/JS is simple Angular using bootstrap layouts.
 * To perform city/state to latitude/longitude lookup I integrated with the Google Map REST API
 * To perform all forecast lookups I integrated with the darkSky (https://darksky.net/dev/) weather REST API
-
+* The project is deployed to a heroku free instance and has some minor deployment issues to be worked out. More info is in the deployment/configuration sections.
 
 ## Getting Started
 
@@ -53,14 +53,21 @@ Create a new app.properties file in the src/main/resources directory with the co
 
 ### Running the Project
 
-Build whole project and deploy to tomcat instance (or Jetty).
+I run the project using two different approaches: inside Eclipse IDE or heroku command line.
+
+To run in Eclipse IDE, build whole project and deploy to tomcat instance (or Jetty)
 Open browser and hit a simple endpoint
 http://localhost:8080/SpringMVCWeather/weather/ - main page for UI form/layout
 http://localhost:8080/SpringMVCWeather/weather/forecast/city,state - returns JSON for current forecast for given city,state
 
+To run on local heroku command line tools
+** mvn clean install (create the WAR)
+** heroku local web (deploy locally)
+** http://localhost:5000/weather (endpoint for the application)
+
 ## Testing
 
-There are unit tests at each layer (Java, Spring MVC, Angular JS)
+There are unit tests at each layer (Java, Spring MVC, Angular JS) these are run by simple Junit test runners.
 
 To run all angular tests:
 `./node_modules/.bin/karma start`  - (node_modules means this assumes all node dependencies are installed LOCALLY in project)
@@ -68,15 +75,20 @@ To run all angular tests:
 
 ## Deployment
 
-N/A
+The project is currently deployed to a free instance of Heroku using normal heroku java deployment (NOT spring boot!).
+Until I fix the app.properties dependency issue you need to manually update the two API keys in the app.properties file
+before deploying to your heroku instance. Totally sucks I know.
+
+Also, the Angular app.js contains a global for the domain name (matching the heroku domain name given during the heroku create command). This will differ if it's deployed to a different cloud instance. At some point I'll figure out how to 
+abstract this correctly.
 
 
 ## TODO Stuff
 
+* Fix the heroku properties to be environment variables
 * Spring code based setup (not XML)
 * Fix the separation of tests/src code (src/main/java, test/java) (and resources)
 * Error handling - Probably should add a custom exception handler in UI
-* Push to Heroku - Need to install this in the cloud on Heroku at some point too. I may switch this over to Spring boot at this point
 
 ## Getting Help
 
