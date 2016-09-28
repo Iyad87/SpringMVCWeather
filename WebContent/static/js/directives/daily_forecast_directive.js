@@ -6,7 +6,8 @@
 angular.module('myApp').directive('dailyForecast', function() {
 	return {
 		restrict: 'E',
-		templateUrl: '/SpringMVCWeather/static/js/directives/dailyForecast.html',
+		xxxtemplateUrl: '/SpringMVCWeather/static/js/directives/dailyForecast.html',
+		templateUrl: '/static/js/directives/dailyForecast.html',
 		scope: {forecast: "="} // two way binding for forecast
 	};
 });

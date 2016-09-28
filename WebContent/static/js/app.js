@@ -7,7 +7,7 @@ var App = angular.module('myApp',["ngAnimate"]);
 // Defining baseServiceURL as constant (not sure of right pattern here)
 //App.constant("baseServiceURL", "http://localhost:8080/SpringMVCWeather");
 // TODO: need to figure out how to inject this!!! This is horrible to do here!!
-App.constant("baseServiceURL", "https://aqueous-savannah-11822.herokuapp.com/weather");
+App.constant("baseServiceURL", "https://aqueous-savannah-11822.herokuapp.com");
 
 /***
  * Remove these comments to enable template cache debugging
