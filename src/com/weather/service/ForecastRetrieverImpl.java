@@ -65,7 +65,9 @@ public class ForecastRetrieverImpl implements ForecastRetriever {
 		arguments.put(ARG_API_KEY, getDarkskyApiKey());
 		arguments.put(ARG_LONGITUDE, longitude);
 		arguments.put(ARG_LATITUDE, latitude);
-		System.out.println("DarkskyApiKey is: " + getDarkskyApiKey());
+		System.err.println("Hello, logs!");
+		System.out.println("**** DarkskyApiKey out is: " + getDarkskyApiKey());
+		System.err.println("**** DarkskyApiKey err is: " + getDarkskyApiKey());
 		return arguments;
 	}
 	
