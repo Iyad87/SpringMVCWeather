@@ -45,10 +45,10 @@ Running the Angular JS unit tests uses the standard Karma/Jasmine testing stack 
 
 You need to load the pom.xml and create a MAVEN run configuration with "clean install".
 
-Create a new app.properties file in the src/main/resources directory with the correct properties
+There are two environment variables required these can be setup using heroku config:set commands
 
-* **darksky.api.key=YOUR_KEY_GOES_HERE** - Darksky api key for all REST requests
-* **map.api.key=YOUR_GOOGLE_KEY_GOES_HERE** - 
+* **DARKSKY_API_KEY=your dark sky key here** - Darksky api key for all REST requests  
+* **MAP_API_KEY=your google map api key here** - Google map API key 
 
 
 ### Running the Project
@@ -75,18 +75,17 @@ To run all angular tests:
 
 ## Deployment
 
-The project is currently deployed to a free instance of Heroku using normal heroku java deployment (NOT spring boot!).
-Until I fix the app.properties dependency issue you need to manually update the two API keys in the app.properties file
-before deploying to your heroku instance. Totally sucks I know.
+The project is currently deployed to a free instance of Heroku using normal Heroku java deployment (NOT spring boot!). You need to ensure the two API keys are configured in the configuration environment.
 
-Also, the Angular app.js contains a global for the domain name (matching the heroku domain name given during the heroku create command). This will differ if it's deployed to a different cloud instance. At some point I'll figure out how to 
+Also, the Angular app.js contains a global for the domain name (matching the Heroku domain name given during the Heroku create command). This will differ if it's deployed to a different cloud instance. At some point I'll figure out how to 
 abstract this correctly.
 
 
 ## TODO Stuff
 
-* Fix the heroku properties to be environment variables
-* Spring code based setup (not XML)
+* Fix the angular domain name issue in app.js
+* Spring code based setup (not XML) (probably migrate over to spring boot!)
+* Add some logging!
 * Fix the separation of tests/src code (src/main/java, test/java) (and resources)
 * Error handling - Probably should add a custom exception handler in UI
 

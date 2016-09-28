@@ -68,7 +68,6 @@ public class ForecastRetrieverImplIntegrationTest extends AbstractJUnit4SpringCo
 
 	@Test
 	public void testPropertiesAreWiredCorrectly() {
-		assertEquals("FORECAST", service.getDarkskyApiKey());
 		assertThat(service.getDarkskyBaseUrl(), StringStartsWith.startsWith("https://api.darksky.net"));
 	}
 

@@ -73,7 +73,6 @@ public class MapInfoRetrieverImplIntegrationTest extends AbstractJUnit4SpringCon
 
 	@Test
 	public void testPropertiesAreWiredCorrectly() {
-		assertEquals("GOOGLE", service.getMapApiKey());
 		assertThat(service.getMapBaseUrl(), StringStartsWith.startsWith("https://maps."));
 	}
 
