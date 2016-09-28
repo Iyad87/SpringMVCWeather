@@ -81,6 +81,9 @@ public class WeatherController {
 		
 		MapAPIResponse mapResponse = this.getMapInfoRetriever().getMapInfoFor(city, state);
 		Location loc = mapResponse.getGeometry().getLocation();
+		
+		System.out.println("**** going to call map API for lat: " + loc.getLatitude());
+		
 		ForecastResponse forecastResponse = forecastRetriever.getForcastFor(String.valueOf(loc.getLatitude()),
 				String.valueOf(loc.getLongitude()));
 		forecastResponse.setFormattedAddress(mapResponse.getFormattedAddress());
