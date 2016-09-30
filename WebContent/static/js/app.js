@@ -10,7 +10,8 @@ if (location.host.includes("localhost")) {
 	App.constant("baseServiceURL", "http://localhost:5000");
 	console.log("* baseServiceURL is: " + "http://localhost:5000");
 } else {
-	App.constant("baseServiceURL", location.host);
+//	App.constant("baseServiceURL", location.host);
+	App.constant("baseServiceURL", "");
 	console.log("baseServiceURL is: " + location.host);
 }
 
