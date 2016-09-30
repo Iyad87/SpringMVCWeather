@@ -8,7 +8,7 @@ angular.module('myApp').controller('ForecastController', ['$scope', 'ForecastSer
     self.forecastResponse = {longitude:null, latitude:null, currently:null, daily:null};
     self.submit = submit;
     self.searchAddress = "Philadelphia,PA";
-
+    self.errorMessage = null;
     // force city,state
     $scope.cityStateRE = /^[A-Za-z]+,[ ]?[A-Za-z][A-Za-z]$/;
 
@@ -23,9 +23,10 @@ angular.module('myApp').controller('ForecastController', ['$scope', 'ForecastSer
             .then(
             function(d) {
                 self.forecastResponse = d;
+                self.errorMessage = null;
             },
             function(errResponse){
-                console.error('Error while fetching Forecasts');
+                self.errorMessage = errResponse;
             }
         );
     }
