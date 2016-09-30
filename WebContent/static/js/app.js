@@ -4,16 +4,18 @@
 'use strict';
  
 var App = angular.module('myApp',["ngAnimate"]);
-App.run(function($rootScope,$location) {
-	console.log($location.host() + $location.port());
-	console.log(location.host);
-});
-// Defining baseServiceURL as constant (not sure of right pattern here)
-//App.constant("baseServiceURL", "http://localhost:8080/SpringMVCWeather");
-//App.constant("baseServiceURL", "http://localhost:8080/SpringMVCWeather");
-//App.constant("baseServiceURL", "http://localhost:5000");
+
+if (location.host.includes("localhost")) {
+//	App.constant("baseServiceURL", "http://localhost:8080/SpringMVCWeather");
+	App.constant("baseServiceURL", "http://localhost:5000");
+	console.log("* baseServiceURL is: " + "http://localhost:5000");
+} else {
+	App.constant("baseServiceURL", location.host);
+	console.log("baseServiceURL is: " + location.host);
+}
+
 // TODO: need to figure out how to inject this correctly. This is the heroku domain name
-App.constant("baseServiceURL", "https://aqueous-savannah-11822.herokuapp.com");
+//App.constant("baseServiceURL", "https://aqueous-savannah-11822.herokuapp.com");
 
 /***
  * Remove these comments to enable template cache debugging
