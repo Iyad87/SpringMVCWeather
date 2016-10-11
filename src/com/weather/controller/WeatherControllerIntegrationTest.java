@@ -5,7 +5,6 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
@@ -25,6 +24,7 @@ import com.weather.model.MapAPIResponse;
 import com.weather.model.exceptions.ExternalServiceInvocationException;
 import com.weather.service.ForecastRetriever;
 import com.weather.service.MapInfoRetriever;
+import static org.mockito.Mockito.*;
 
 
 @WebAppConfiguration
@@ -46,8 +46,8 @@ public class WeatherControllerIntegrationTest extends AbstractJUnit4SpringContex
 	@Before
 	public void setUp() throws Exception {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-		Mockito.reset(forecastRetriever);
-		Mockito.reset(mapInfoRetriever);
+		reset(forecastRetriever);
+		reset(mapInfoRetriever);
 	}
 	
 	private MediaType getMediaType() {
@@ -57,8 +57,8 @@ public class WeatherControllerIntegrationTest extends AbstractJUnit4SpringContex
 	@Test
 	public void testGetForecastReturnsHTTP_OK_OnValidRequest() throws Exception {
 		// mock service calls
-		Mockito.when(mapInfoRetriever.getMapInfoFor("TestCity", "PA")).thenReturn(buildStubMapResponse());
-		Mockito.when(forecastRetriever.getForcastFor("100.0", "100.0")).thenReturn(buildStubForecastResponse());
+		when(mapInfoRetriever.getMapInfoFor("TestCity", "PA")).thenReturn(buildStubMapResponse());
+		when(forecastRetriever.getForcastFor("100.0", "100.0")).thenReturn(buildStubForecastResponse());
 
 		// make GET request to endpoint
 		mockMvc.perform(MockMvcRequestBuilders.get("/weather/forecast/TestCity,PA").accept(getMediaType()).contentType(getMediaType()))
@@ -70,41 +70,41 @@ public class WeatherControllerIntegrationTest extends AbstractJUnit4SpringContex
 				.andExpect(MockMvcResultMatchers.jsonPath("$.searchAddress", Matchers.is("TestCity,PA")));
 //                .andDo(MockMvcResultHandlers.print());
 		
-        Mockito.verify(mapInfoRetriever, Mockito.times(1)).getMapInfoFor("TestCity", "PA");
-        Mockito.verifyNoMoreInteractions(mapInfoRetriever);
-        Mockito.verify(forecastRetriever, Mockito.times(1)).getForcastFor("100.0", "100.0");
-        Mockito.verifyNoMoreInteractions(forecastRetriever);
+        verify(mapInfoRetriever, times(1)).getMapInfoFor("TestCity", "PA");
+        verifyNoMoreInteractions(mapInfoRetriever);
+        verify(forecastRetriever, times(1)).getForcastFor("100.0", "100.0");
+        verifyNoMoreInteractions(forecastRetriever);
 	}
 
 	@Test
 	public void testGetForecastReturnsBAD_GATEWAY_OnGoogleServiceInvocationError() throws Exception {
 		// mock service calls
 		ExternalServiceInvocationException ex = new ExternalServiceInvocationException("Google", "failed");
-		Mockito.when(mapInfoRetriever.getMapInfoFor("TestCity", "PA")).thenThrow(ex);
+		when(mapInfoRetriever.getMapInfoFor("TestCity", "PA")).thenThrow(ex);
 
 		// make GET request to endpoint
 		mockMvc.perform(MockMvcRequestBuilders.get("/weather/forecast/TestCity,PA").accept(getMediaType()).contentType(getMediaType()))
                 .andExpect(MockMvcResultMatchers.status().isBadGateway());
 		
-        Mockito.verify(mapInfoRetriever, Mockito.times(1)).getMapInfoFor("TestCity", "PA");
-        Mockito.verifyNoMoreInteractions(mapInfoRetriever);
+        verify(mapInfoRetriever, times(1)).getMapInfoFor("TestCity", "PA");
+        verifyNoMoreInteractions(mapInfoRetriever);
 	}
 
 	@Test
 	public void testGetForecastReturnsBAD_GATEWAY_OnForecastIOServiceInvocationError() throws Exception {
 		// mock service calls
-		Mockito.when(mapInfoRetriever.getMapInfoFor("TestCity", "PA")).thenReturn(buildStubMapResponse());
+		when(mapInfoRetriever.getMapInfoFor("TestCity", "PA")).thenReturn(buildStubMapResponse());
 		ExternalServiceInvocationException ex = new ExternalServiceInvocationException("FORECAST", "failed");
-		Mockito.when(forecastRetriever.getForcastFor("100.0", "100.0")).thenThrow(ex);
+		when(forecastRetriever.getForcastFor("100.0", "100.0")).thenThrow(ex);
 
 		// make GET request to endpoint
 		mockMvc.perform(MockMvcRequestBuilders.get("/weather/forecast/TestCity,PA").accept(getMediaType()).contentType(getMediaType()))
                 .andExpect(MockMvcResultMatchers.status().isBadGateway());
 		
-        Mockito.verify(mapInfoRetriever, Mockito.times(1)).getMapInfoFor("TestCity", "PA");
-        Mockito.verifyNoMoreInteractions(mapInfoRetriever);
-        Mockito.verify(forecastRetriever, Mockito.times(1)).getForcastFor("100.0", "100.0");
-        Mockito.verifyNoMoreInteractions(forecastRetriever);
+        verify(mapInfoRetriever, times(1)).getMapInfoFor("TestCity", "PA");
+        verifyNoMoreInteractions(mapInfoRetriever);
+        verify(forecastRetriever, times(1)).getForcastFor("100.0", "100.0");
+        verifyNoMoreInteractions(forecastRetriever);
 	}
 	
 	@Test

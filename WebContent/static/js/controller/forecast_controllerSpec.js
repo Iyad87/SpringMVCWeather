@@ -36,7 +36,15 @@ describe('ForecastController', function() {
 	it('defaults searchAddress to Philadelphia,PA', function() { 
 		expect(forecastController.searchAddress).toEqual('Philadelphia,PA');
 	});
-	
+
+	it('defaults initial forecastResponse values to null', function() { 
+		expect(forecastController.forecastResponse).toBeDefined();
+		expect(forecastController.forecastResponse.longitude).toBeNull();
+		expect(forecastController.forecastResponse.latitude).toBeNull();
+		expect(forecastController.forecastResponse.currently).toBeNull();
+		expect(forecastController.forecastResponse.daily).toBeNull();
+	});
+
 	describe('submit', function() {
 		
 		it('invokes ForecastService and returns forecast JSON on success', function() {
@@ -60,7 +68,7 @@ describe('ForecastController', function() {
 			expect(forecastController.errorMessage).toBeNull();
 		});
 		
-		it('invokes ForecastService and writes log on error', function() {
+		it('invokes ForecastService and writes errorMessage on error', function() {
 			mockForecastService.fetchForecastForLocation = function(location) {
 			      var defer = $q.defer();
 			      defer.reject("mocking error here");
