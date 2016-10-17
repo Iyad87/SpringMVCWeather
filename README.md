@@ -3,10 +3,10 @@ SpringMVCWeather
 
 The SpringMVCWeather is a simple Spring MVC application which returns the weather forecast for a given city/state combination. I created this sample application to show someone I can still build SpringMVC applications and how to use Eclipse again since it's been 4 years!
 
-Basically the project has REST endpoints for retrieving the current forecast. It will return both JSON.
+Basically the project has REST endpoints for retrieving the current forecast.
 
 Notes:
-* I'm refreshing my SpringMVC memory so I may not be using all the latest bells/whistles from Spring.
+* I'm refreshing my SpringMVC memory so I may not be using all the latest bells/whistles from Spring (e.g. Spring boot).
 * This is built using Eclipse Neon on Ubuntu. It was NOT tested on Windows since I don't have a windows laptop anymore.
 * I'm a MAVEN novice (I used ANT 4+ years ago) so I may have some things incorrect there.
 * The HTML/JS is simple Angular using bootstrap layouts.
@@ -57,10 +57,12 @@ I run the project using two different approaches: inside Eclipse IDE or heroku c
 
 To run in Eclipse IDE, build whole project and deploy to tomcat instance (or Jetty)
 Open browser and hit a simple endpoint
+
 http://localhost:8080/SpringMVCWeather/weather/ - main page for UI form/layout
 http://localhost:8080/SpringMVCWeather/weather/forecast/city,state - returns JSON for current forecast for given city,state
 
 To run on local heroku command line tools
+
 ** mvn clean install (create the WAR)
 ** heroku local web (deploy locally)
 ** http://localhost:5000/weather (endpoint for the application)
@@ -70,6 +72,7 @@ To run on local heroku command line tools
 There are unit tests at each layer (Java, Spring MVC, Angular JS) these are run by simple Junit test runners.
 
 To run all angular tests:
+
 `./node_modules/.bin/karma start`  - (node_modules means this assumes all node dependencies are installed LOCALLY in project)
 
 
