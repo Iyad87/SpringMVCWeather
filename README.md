@@ -58,14 +58,14 @@ I run the project using two different approaches: inside Eclipse IDE or heroku c
 To run in Eclipse IDE, build whole project and deploy to tomcat instance (or Jetty)
 Open browser and hit a simple endpoint
 
-* http://localhost:8080/SpringMVCWeather/weather/ - main page for UI form/layout
-* http://localhost:8080/SpringMVCWeather/weather/forecast/city,state - returns JSON for current forecast for given city,state
+* `http://localhost:8080/SpringMVCWeather/weather/` - main page for UI form/layout
+* `http://localhost:8080/SpringMVCWeather/weather/forecast/city,state` - returns JSON for current forecast for given city,state
 
 To run on local heroku command line tools
 
-* mvn clean install (create the WAR)
-* heroku local web (deploy locally)
-* http://localhost:5000/weather (endpoint for the application)
+* `mvn clean install` (create the WAR)
+* `heroku local web` (deploy locally)
+* `http://localhost:5000/weather` (endpoint for the application)
 
 ## Testing
 
