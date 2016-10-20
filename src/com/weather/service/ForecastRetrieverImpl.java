@@ -11,11 +11,13 @@ import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import com.weather.model.ForecastResponse;
+import com.weather.model.exceptions.ExternalServiceGatewayException;
 import com.weather.model.exceptions.ExternalServiceInvocationException;
 
 @Service
 public class ForecastRetrieverImpl implements ForecastRetriever {
 
+	public static final String FORECAST_IO_SERVICE_NAME = "ForecastIOException";
 	protected static final String ARG_LATITUDE = "latitude";
 	protected static final String ARG_LONGITUDE = "longitude";
 	protected static final String ARG_API_KEY = "apiKey";
@@ -76,7 +78,10 @@ public class ForecastRetrieverImpl implements ForecastRetriever {
 			// Darksky only return HTTPStatus code (not error response) so catch exceptions here and convert to 
 			// our common Exception for easier error handling
 //			System.out.println("HttpStatus from ForecastIO is: " + httpStatusEx.getRawStatusCode());
-			throw new ExternalServiceInvocationException("ForecastIOException", httpStatusEx.getRawStatusCode());
+			throw new ExternalServiceInvocationException(FORECAST_IO_SERVICE_NAME, httpStatusEx.getRawStatusCode());
+		} catch (Exception ex) {
+			// This is thrown when can't even get to API (e.g. network error)!
+			throw new ExternalServiceGatewayException(FORECAST_IO_SERVICE_NAME, ex);
 		}
 	}
 

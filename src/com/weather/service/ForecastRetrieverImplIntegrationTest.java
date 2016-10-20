@@ -1,9 +1,15 @@
 package com.weather.service;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.hamcrest.core.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpMethod;
@@ -19,6 +25,8 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.weather.model.ForecastResponse;
+import com.weather.model.GoogleAPIResponse;
+import com.weather.model.exceptions.ExternalServiceGatewayException;
 import com.weather.model.exceptions.ExternalServiceInvocationException;
 
 
@@ -51,6 +59,23 @@ public class ForecastRetrieverImplIntegrationTest extends AbstractJUnit4SpringCo
 			assertEquals(HttpStatus.BAD_REQUEST.value(), ex.getExternalServiceHTTPStatusCode());
 		}
 		mockServer.verify();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testGetForcastForThrowsExternalServiceGatewayExceptionWhenGenericExceptionThrownInvokingService() {
+		RestTemplate mockRestTemplate = Mockito.mock(RestTemplate.class);
+		Map<String, String> arguments = new HashMap<String,String>();
+		when(mockRestTemplate.getForObject(service.getDarkskyBaseUrl(), ForecastResponse.class, arguments))
+		.thenThrow(Exception.class);
+		ForecastRetrieverImpl serviceThrowingException = new ForecastRetrieverImpl();
+		try {
+			serviceThrowingException.getForcastFor("100", "-100");
+			fail();
+		} catch (ExternalServiceGatewayException ex) {
+			assertEquals(ForecastRetrieverImpl.FORECAST_IO_SERVICE_NAME, ex.getServiceName());
+			assertNotNull(ex.getInnerException());
+		}
 	}
 
 	@Test

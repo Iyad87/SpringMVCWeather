@@ -1,13 +1,17 @@
 package com.weather.service;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hamcrest.core.StringStartsWith;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpMethod;
@@ -22,8 +26,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.weather.model.ForecastResponse;
 import com.weather.model.GoogleAPIResponse;
 import com.weather.model.MapAPIResponse;
+import com.weather.model.exceptions.ExternalServiceGatewayException;
 import com.weather.model.exceptions.ExternalServiceInvocationException;
 
 
@@ -56,6 +62,24 @@ public class MapInfoRetrieverImplIntegrationTest extends AbstractJUnit4SpringCon
 			assertEquals(HttpStatus.BAD_GATEWAY.value(), ex.getExternalServiceHTTPStatusCode());
 		}
 		mockServer.verify();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testGetMapInfoForThrowsExternalServiceGatewayExceptionWhenGenericExceptionThrownFromServiceCall() {
+		RestTemplate mockRestTemplate = Mockito.mock(RestTemplate.class);
+		Map<String, String> arguments = new HashMap<String,String>();
+		when(mockRestTemplate.getForObject(service.getMapBaseUrl(), GoogleAPIResponse.class, arguments))
+		.thenThrow(Exception.class);
+		MapInfoRetrieverImpl serviceThrowingException = new MapInfoRetrieverImpl();
+		serviceThrowingException.setRestTemplate(mockRestTemplate);
+		try {
+			serviceThrowingException.getMapInfoFor("Phila", "PA");
+			fail();
+		} catch (ExternalServiceGatewayException ex) {
+			assertEquals(MapInfoRetrieverImpl.GOOGLE_MAP_GEOCODE_SERVICE, ex.getServiceName());
+			assertNotNull(ex.getInnerException());
+		}
 	}
 
 	@Test

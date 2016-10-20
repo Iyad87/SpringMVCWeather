@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import com.weather.model.GoogleAPIResponse;
 import com.weather.model.MapAPIResponse;
 import com.weather.model.exceptions.LocationNotFoundException;
+import com.weather.model.exceptions.ExternalServiceGatewayException;
 import com.weather.model.exceptions.ExternalServiceInvocationException;
 
 @Service
@@ -95,6 +96,9 @@ public class MapInfoRetrieverImpl implements MapInfoRetriever {
 			// Google usually returns errors in results structure so this isn't usually 
 			// invoked but still here to convert it into our custom exception just in case
 			throw new ExternalServiceInvocationException(GOOGLE_MAP_GEOCODE_SERVICE, httpStatusEx.getRawStatusCode());
+		} catch (Exception ex) {
+			// This is thrown when can't even get to API (e.g. network error)!
+			throw new ExternalServiceGatewayException(GOOGLE_MAP_GEOCODE_SERVICE, ex);
 		}
 	}
 
